@@ -57,7 +57,7 @@ def buscar_produto(produto):
 def consultar_produto(cadastro_produtos):
     buscar= True
     while buscar:
-          print("digite o nome do produto")
+          print(" nome do produto")
           produto=input()
           dados=buscar_produto(produto)
           if dados==False:
