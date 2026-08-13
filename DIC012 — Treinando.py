@@ -19,7 +19,7 @@ def ler_produto():
 def ler_quantidade():
       while True:
               try:
-                 print("informe a quantidade")
+                 print("coloque a quantidade")
                  quantidade=int(input())
                  if quantidade>=0:
                     return quantidade
