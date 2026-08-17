@@ -1,4 +1,4 @@
-import json
+
 
 def ler_relatorio():
    try:
@@ -12,5 +12,4 @@ def gerar_relatorio(cadastro_produtos):
         for produto, informaçoes in cadastro_produtos.items():
             arquivo.write(f"{produto}\n")
             for chave, valor in informaçoes.items():
-                print(chave, valor)
                 arquivo.write(f" {chave}, {valor}\n")

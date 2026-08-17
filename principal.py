@@ -2,64 +2,47 @@
 
 import persistencia
 import relatorios
+import validacoes
 cadastro_produtos=persistencia.carregar_json()
 encerrar=False
 
 
-def ler_produto():
-    while True:
-            print("informe o produto")
-            produto=input()
-            if produto not in cadastro_produtos:
-               return produto
-            else:
-                print(f"{produto} já esta cadastrado")
-
-
-def ler_quantidade():
-      while True:
-              try:
-                 print("coloque a quantidade")
-                 quantidade=int(input())
-                 if quantidade>=0:
-                    return quantidade
-                                   
-                 else:
-                     print("A quantidade deve ser um numero inteiro e positivo")
-              except ValueError:
-                    print("A quantidade deve conter um valor inteiro, sua anta")
+def cadastro(cadastro_produtos):
+          while True:       
+               produto=validacoes.ler_produto()  
+               preço=validacoes.ler_preço()
+               quantidade=validacoes.ler_quantidade()
+          
+               dados={
+                      "preço":preço,
+                      "quantidade": quantidade}
     
-def ler_preço():
-    while True:   
-          try:
-              print("informe o preço")
-              preço=float(input())
-              
-              if preço>0:
-                 return preço
-                                
-               
-              else:
-                  print("o valor do preço deve ser maior que zero")
-                  continue
-               
-          except ValueError:
-                 print("o preço deve conter um valor numerico, sua anta")
+               cadastro_produtos[produto]=dados 
+               persistencia.salvar_json(cadastro_produtos)
+               while True:
+                    print("deseja continuar ? sim/nao")
+                    continuar=input()
+                    if continuar=="nao":
+                       sair=True
+                       break
+                    elif continuar=="sim":
+                        sair=False 
+                        break                
+             
+                    else:
+                      print("opçao invalida!")  
+    
+          
 
-
-def buscar_produto(produto):
-    if produto in cadastro_produtos:
-       return cadastro_produtos[produto]
-    else:
-        return False
-
+               if sair==True:
+                  return
 
 def consultar_produto(cadastro_produtos):
     buscar= True
     while buscar:
           print(" nome do produto")
           produto=input()
-          dados=buscar_produto(produto)
+          dados=validacoes.buscar_produto(produto)
           if dados==False:
              print("produto nao registrado")
              
@@ -89,7 +72,7 @@ def Alteração_produto(cadastro_produtos):
     while True:
          print("qual produto vc deseja alterar ? ")
          produto=input()
-         dados=buscar_produto(produto)
+         dados=validacoes.buscar_produto(produto)
          if dados:
             break
          else:
@@ -109,7 +92,7 @@ def Alteração_produto(cadastro_produtos):
 def excluir_produto():
     print("qual produto deseja excluir?")
     produto=input()
-    dados=buscar_produto(produto)
+    dados=validacoes.buscar_produto(produto)
     if dados:
        print(dados)
        print("tem certeza que deseja excluir ?")
@@ -135,35 +118,7 @@ def excluir_produto():
 
 
 
-def cadastro(cadastro_produtos):
-          while True:       
-               produto=ler_produto()   
-               preço=ler_preço()
-               quantidade=ler_quantidade()
-          
-               dados={
-                      "preço":preço,
-                      "quantidade": quantidade}
-    
-               cadastro_produtos[produto]=dados 
-               persistencia.salvar_json(cadastro_produtos)
-               while True:
-                    print("deseja continuar ? sim/nao")
-                    continuar=input()
-                    if continuar=="nao":
-                       sair=True
-                       break
-                    elif continuar=="sim":
-                        sair=False 
-                        break                
-             
-                    else:
-                      print("opçao invalida!")  
-    
-          
 
-               if sair==True:
-                  return
           
                  
           
