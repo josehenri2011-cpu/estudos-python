@@ -1,10 +1,9 @@
-import principal
 
-def ler_produto():
+def ler_produto(cadastro_produtos):
     while True:
             print("informe o produto")
             produto=input()
-            if produto not in principal.cadastro_produtos:
+            if produto not in cadastro_produtos:
                return produto
             else:
                 print(f"{produto} já esta cadastrado")
@@ -41,8 +40,8 @@ def ler_preço():
                  print("o preço deve conter um valor numerico, sua anta")
 
 
-def buscar_produto(produto):
-    if produto in principal.cadastro_produtos:
-       return principal.cadastro_produtos[produto]
+def buscar_produto(produto,cadastro_produtos):
+    if produto in cadastro_produtos:
+       return cadastro_produtos[produto]
     else:
         return False

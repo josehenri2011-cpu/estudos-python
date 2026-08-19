@@ -9,7 +9,7 @@ encerrar=False
 
 def cadastro(cadastro_produtos):
           while True:       
-               produto=validacoes.ler_produto()  
+               produto=validacoes.ler_produto(cadastro_produtos)  
                preço=validacoes.ler_preço()
                quantidade=validacoes.ler_quantidade()
           
@@ -42,7 +42,7 @@ def consultar_produto(cadastro_produtos):
     while buscar:
           print(" nome do produto")
           produto=input()
-          dados=validacoes.buscar_produto(produto)
+          dados=validacoes.buscar_produto(produto,cadastro_produtos)
           if dados==False:
              print("produto nao registrado")
              
@@ -72,7 +72,7 @@ def Alteração_produto(cadastro_produtos):
     while True:
          print("qual produto vc deseja alterar ? ")
          produto=input()
-         dados=validacoes.buscar_produto(produto)
+         dados=validacoes.buscar_produto(produto,cadastro_produtos)
          if dados:
             break
          else:
@@ -92,7 +92,7 @@ def Alteração_produto(cadastro_produtos):
 def excluir_produto():
     print("qual produto deseja excluir?")
     produto=input()
-    dados=validacoes.buscar_produto(produto)
+    dados=validacoes.buscar_produto(produto,cadastro_produtos)
     if dados:
        print(dados)
        print("tem certeza que deseja excluir ?")
