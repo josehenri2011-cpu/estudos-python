@@ -3,11 +3,9 @@ import relatorios
 import persistencia
 
 cadastro_produtos=persistencia.carregar_json()
+encerrar=False
 
-
-
-
-def menu(cadastro_produtos):
+def menu():
   
   while True:
         print("1 - Cadastrar produto")
@@ -28,8 +26,10 @@ def menu(cadastro_produtos):
         except ValueError:
              print("seu animal, digite UM NUMERO")
              continue    
+    
 
-        while True:      
+
+while True:      
      
             opcao=menu()       
     
@@ -64,18 +64,13 @@ def menu(cadastro_produtos):
                          encerrar=True
                          break
          
-            elif resposta=="nao":
-                  print("voltando ao menu")
-                  break
+                     elif resposta=="nao":
+                         print("voltando ao menu")
+                         break
                     
-            else:
-                print("resposta invalida")
+                     else:
+                         print("resposta invalida")
         
             if encerrar==True:
-               print("programa finalizado")
-               break
-
-
-
-
-menu(cadastro_produtos)
+                print("programa finalizado")
+                break
