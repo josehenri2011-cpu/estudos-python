@@ -94,25 +94,34 @@ def Alteração_produto(cadastro_produtos):
 
 
 def excluir_produto(cadastro_produtos):
-    print("qual produto deseja excluir?")
-    produto=input()
-    dados=validacoes.buscar_produto(produto,cadastro_produtos)
-    if dados:
-       print(dados)
-       print("tem certeza que deseja excluir ?")
-       resposta=input()
-       if resposta== "sim":
-          del cadastro_produtos[produto]
-          print("produto excluido com sucesso")
-          persistencia.salvar_json(cadastro_produtos)
-       elif resposta== "nao":
-           print("voltando ao menu")
-           return
-           
-       
+    while True:
+       flag= False
+       print("qual produto deseja excluir?")
+       produto=input()
+       dados=validacoes.buscar_produto(produto,cadastro_produtos)
+       if dados:
+            print(dados)
+            while True:    
+                 print("tem certeza que deseja excluir ?")
+                 resposta=input()
+                 if resposta== "sim":
+                    del cadastro_produtos[produto]
+                    print("produto excluido com sucesso")
+                    persistencia.salvar_json(cadastro_produtos)
+                    flag=True
+                    break
+                 elif resposta== "nao":
+                     print("voltando ao menu")
+                     flag=True
+                     break                 
+                 else:
+                   print("resposta invalida")
+
        else:
-          print("resposta invalida")
+         print("produto nao encontrado")
+   
+           
 
-    else:
-       print("produto nao cadastrado")
-
+       if flag:
+           return       
+         
