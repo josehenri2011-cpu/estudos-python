@@ -15,31 +15,37 @@ def gerar_relatorio(cadastro_produtos):
                 arquivo.write(f" {chave}, {valor}\n")
 
 def relatorio_estoque(cadastro_produtos):
+    if cadastro_produtos == {}:
+       print("nenhum registro esta cadastrado")
+
     maior=0
     primeira_quantidade=True
+    total=0
     for produto, informacoes in cadastro_produtos.items():
         print(produto)
         quantidade=cadastro_produtos[produto]["quantidade"]
         preço=cadastro_produtos[produto]["preço"]
-        
-
+        soma=preço * quantidade
+        total=total+soma
         for chave, valor in informacoes. items():
             print(chave, valor)
             
             if chave=="quantidade":
-                print(f"Valor total do estoque:{preço * quantidade}")
+                print(f"Valorem estoque:{soma}")
 
                 if valor>maior:
                    maior=valor
+                   nome_maior=produto
+
                 if primeira_quantidade:
                    menor=valor 
                    primeira_quantidade=False
                 if valor<menor:
                    menor=valor
-                   
+                   nome_menor=produto
 
 
     print("MISSAO")
-    print("Maior quantidade:", maior)
-    print("Menor quantidade:", menor)
-    
+    print(f"Maior quantidade:{nome_maior}={maior}")
+    print(f"Menor quantidade: {nome_menor}={menor}")
+    print(f"Valor total de todo estoque: {total}")
