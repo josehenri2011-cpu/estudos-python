@@ -143,25 +143,23 @@ def movimentação(cadastro_produtos):
          print("selecione entrada ou saida")
          opcao=input()
          if opcao== "entrada":
-            valor=int(input("insira um valor:"))
+            valor=validacoes.ler_quantidade()
             total=valor+estoque
-            if total>=0:
-               print(f"Estoque atual: {estoque}")
-               print(f"entrada solicitada:{valor}"  )
-               print(f"Estoque Final: {total}")
-               cadastro_produtos[produto]["quantidade"]=total
-               print(cadastro_produtos[produto]["quantidade"])
-               persistencia.salvar_json(cadastro_produtos)
-               break
-            else:
-                print("o estoque nao pode ser negativo")
+            print(f"Estoque atual: {estoque}")
+            print(f"entrada solicitada:{valor}"  )
+            print(f"Estoque Final: {total}")
+            cadastro_produtos[produto]["quantidade"]=total
+            print(cadastro_produtos[produto]["quantidade"])
+            persistencia.salvar_json(cadastro_produtos)
+            break
+         
 
-         elif opcao=="saida":
-              valor=int(input("insira um valor:"))
+         if opcao=="saida":
+              valor=validacoes.ler_quantidade()
               total=estoque-valor
               if total>=0:
                  print(f"Estoque atual: {estoque}")
-                 print(f"entrada solicitada:{valor}"  )
+                 print(f"Saida solicitada:{valor}"  )
                  print(f"Estoque Final: {total}")
                  cadastro_produtos[produto]["quantidade"]=total
                  print(cadastro_produtos[produto]["quantidade"])
