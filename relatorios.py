@@ -17,7 +17,7 @@ def gerar_relatorio(cadastro_produtos):
 def relatorio_estoque(cadastro_produtos):
     if cadastro_produtos == {}:
        print("nenhum registro esta cadastrado")
-
+       return
     maior=0
     primeira_quantidade=True
     total=0
@@ -39,7 +39,9 @@ def relatorio_estoque(cadastro_produtos):
 
                 if primeira_quantidade:
                    menor=valor 
+                   nome_menor=produto
                    primeira_quantidade=False
+
                 if valor<menor:
                    menor=valor
                    nome_menor=produto
