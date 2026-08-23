@@ -124,4 +124,57 @@ def excluir_produto(cadastro_produtos):
 
        if flag:
            return       
-         
+
+def movimentação(cadastro_produtos):
+    valor=0
+    print("Qual Produto?")
+    produto=input()
+    if produto in cadastro_produtos:
+       dados=validacoes.buscar_produto(produto,cadastro_produtos)
+       print(dados)
+       
+       estoque=cadastro_produtos[produto]["quantidade"]
+       print(estoque)
+
+    else:
+        print("produto nao encontrado")
+        return
+    while True:
+         print("selecione entrada ou saida")
+         opcao=input()
+         if opcao== "entrada":
+            valor=int(input("insira um valor:"))
+            total=valor+estoque
+            if total>=0:
+               print(f"Estoque atual: {estoque}")
+               print(f"entrada solicitada:{valor}"  )
+               print(f"Estoque Final: {total}")
+               cadastro_produtos[produto]["quantidade"]=total
+               print(cadastro_produtos[produto]["quantidade"])
+               persistencia.salvar_json(cadastro_produtos)
+               break
+            else:
+                print("o estoque nao pode ser negativo")
+
+         elif opcao=="saida":
+              valor=int(input("insira um valor:"))
+              total=estoque-valor
+              if total>=0:
+                 print(f"Estoque atual: {estoque}")
+                 print(f"entrada solicitada:{valor}"  )
+                 print(f"Estoque Final: {total}")
+                 cadastro_produtos[produto]["quantidade"]=total
+                 print(cadastro_produtos[produto]["quantidade"])
+                 persistencia.salvar_json(cadastro_produtos)
+                 break
+              else:
+                  print("o estoque nao pode ser negativo")
+
+         else:
+             print("opçao invalida") 
+
+
+       
+               
+          
+                

@@ -16,11 +16,12 @@ def menu():
         print("6 - Ler relatorio")
         print("7 - Salvar Json")
         print("8 - relatorio detalhado")
-        print("9 - Encerrar")
+        print("9 -Movimentação Estoque")
+        print("10 - Encerrar")
 
         try:
            opcao=int(input())
-           if opcao<10 and opcao>0:
+           if opcao<11 and opcao>0:
               return opcao
              
            else:
@@ -59,10 +60,11 @@ while True:
             elif opcao==8:
                 relatorios.relatorio_estoque(cadastro_produtos)
 
-     
-
-
             elif opcao==9:
+                produtos.movimentação(cadastro_produtos)                
+
+
+            elif opcao==10:
                  while True:
                      print("Tem certeza que deseja finalizar ?") 
                      resposta=input()
