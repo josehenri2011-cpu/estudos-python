@@ -3,7 +3,7 @@ import relatorios
 import persistencia
 
 cadastro_produtos=persistencia.carregar_json()
-historico=[]
+historico=persistencia.carregar_historico()
 encerrar=False
 
 def menu():
@@ -39,7 +39,7 @@ while True:
             opcao=menu()       
     
             if opcao==1:
-              produtos.cadastro(cadastro_produtos)
+              produtos.cadastro(cadastro_produtos,historico)
    
             elif opcao==2:
                 produtos.consultar_produto(cadastro_produtos)
@@ -57,7 +57,7 @@ while True:
                 relatorios.ler_relatorio() 
 
             elif opcao==7:
-                persistencia.salvar_json(cadastro_produtos)
+                persistencia.salvar_json(cadastro_produtos,historico)
 
             elif opcao==8:
                 relatorios.relatorio_estoque(cadastro_produtos)

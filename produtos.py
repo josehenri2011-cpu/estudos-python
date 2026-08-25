@@ -6,7 +6,7 @@ import validacoes
 encerrar=False
 
 
-def cadastro(cadastro_produtos):
+def cadastro(cadastro_produtos,historico):
           while True:       
                produto=validacoes.ler_produto(cadastro_produtos)  
                preço=validacoes.ler_preço()
@@ -20,7 +20,7 @@ def cadastro(cadastro_produtos):
                
                cadastro_produtos[produto]=dados
 
-               persistencia.salvar_json(cadastro_produtos)
+               persistencia.salvar_json(cadastro_produtos,historico)
                while True:
                     print("deseja continuar ? sim/nao")
                     continuar=input()
@@ -163,13 +163,15 @@ def movimentação(cadastro_produtos,historico):
             
                             }
             historico.append(dict_estoque)
-            persistencia.salvar_json(cadastro_produtos)
+            persistencia.salvar_json(cadastro_produtos,historico)
+            
+
             break
          
          elif opcao=="saida":
               valor=validacoes.ler_quantidade()
               total=estoque-valor
-              dict_estoque["tipo da movimentação"]= "saida"
+              
 
               if total>=0:
                  print(f"Estoque atual: {estoque}")
@@ -186,7 +188,7 @@ def movimentação(cadastro_produtos,historico):
                              
                                              }
                  historico.append(dict_estoque)
-                 persistencia.salvar_json(cadastro_produtos)
+                 persistencia.salvar_json(cadastro_produtos,historico)
                  break
               else:
                   print("o estoque nao pode ser negativo")

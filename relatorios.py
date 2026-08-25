@@ -1,4 +1,11 @@
+import persistencia
+
 def movimentacao_histórico(historico):
+    historico=persistencia.carregar_historico()
+    if historico==[]:
+       print("Não existe nenhum historico recente")
+       return
+
     for diciociario in historico:
         for chave, valor in diciociario.items():
             print(f"{chave}:{valor}")                
