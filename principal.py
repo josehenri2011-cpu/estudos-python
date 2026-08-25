@@ -39,7 +39,7 @@ while True:
             opcao=menu()       
     
             if opcao==1:
-              produtos.cadastro(cadastro_produtos,historico)
+              produtos.cadastro(cadastro_produtos)
    
             elif opcao==2:
                 produtos.consultar_produto(cadastro_produtos)

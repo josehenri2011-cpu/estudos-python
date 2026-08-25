@@ -139,11 +139,7 @@ def movimentação(cadastro_produtos,historico):
        
        estoque=cadastro_produtos[produto]["quantidade"]
        print(estoque)
-       dict_estoque={
-               "produto":produto,
-                }
-       historico.append(dict_estoque)
-
+       
     else:
         print("produto nao encontrado")
         return
@@ -158,11 +154,15 @@ def movimentação(cadastro_produtos,historico):
             print(f"Estoque Final: {total}")
             cadastro_produtos[produto]["quantidade"]=total
             print(cadastro_produtos[produto]["quantidade"])
-            dict_estoque["tipo da movimentação"]= "entrada"
-            dict_estoque["quantidade movimentada"]= valor
-            dict_estoque["estoque antes"]= estoque
-            dict_estoque["estoque depois"]= total
-
+            dict_estoque={
+                           "produto":produto,
+                            "tipo da movimentação":"entrada",
+                            "quantidade movimentada":valor,
+                            "estoque antes":estoque,
+                            "estoque depois":total,
+            
+                            }
+            historico.append(dict_estoque)
             persistencia.salvar_json(cadastro_produtos)
             break
          
@@ -177,9 +177,15 @@ def movimentação(cadastro_produtos,historico):
                  print(f"Estoque Final: {total}")
                  cadastro_produtos[produto]["quantidade"]=total
                  print(cadastro_produtos[produto]["quantidade"])
-                 dict_estoque["quantidade movimentada"]= valor
-                 dict_estoque["estoque antes"]= estoque
-                 dict_estoque["estoque depois"]= total
+                 dict_estoque={
+                                            "produto":produto,
+                                             "tipo da movimentação":"saida",
+                                             "quantidade movimentada":valor,
+                                             "estoque antes":estoque,
+                                             "estoque depois":total,
+                             
+                                             }
+                 historico.append(dict_estoque)
                  persistencia.salvar_json(cadastro_produtos)
                  break
               else:
