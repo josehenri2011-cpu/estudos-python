@@ -15,8 +15,11 @@ def cadastro(cadastro_produtos):
                dados={
                       "preço":preço,
                       "quantidade": quantidade}
-    
-               cadastro_produtos[produto]=dados 
+               
+         
+               
+               cadastro_produtos[produto]=dados
+
                persistencia.salvar_json(cadastro_produtos)
                while True:
                     print("deseja continuar ? sim/nao")
@@ -48,7 +51,7 @@ def consultar_produto(cadastro_produtos):
           else:   
              print(f"produto {produto}:")
              print(dados)
-          
+             
           
           print("deseja buscar outro produto ?")
           resposta=input()
@@ -125,7 +128,8 @@ def excluir_produto(cadastro_produtos):
        if flag:
            return       
 
-def movimentação(cadastro_produtos):
+def movimentação(cadastro_produtos,historico):
+    
     valor=0
     print("Qual Produto?")
     produto=input()
@@ -135,6 +139,10 @@ def movimentação(cadastro_produtos):
        
        estoque=cadastro_produtos[produto]["quantidade"]
        print(estoque)
+       dict_estoque={
+               "produto":produto,
+                }
+       historico.append(dict_estoque)
 
     else:
         print("produto nao encontrado")
@@ -150,19 +158,28 @@ def movimentação(cadastro_produtos):
             print(f"Estoque Final: {total}")
             cadastro_produtos[produto]["quantidade"]=total
             print(cadastro_produtos[produto]["quantidade"])
+            dict_estoque["tipo da movimentação"]= "entrada"
+            dict_estoque["quantidade movimentada"]= valor
+            dict_estoque["estoque antes"]= estoque
+            dict_estoque["estoque depois"]= total
+
             persistencia.salvar_json(cadastro_produtos)
             break
          
-
-         if opcao=="saida":
+         elif opcao=="saida":
               valor=validacoes.ler_quantidade()
               total=estoque-valor
+              dict_estoque["tipo da movimentação"]= "saida"
+
               if total>=0:
                  print(f"Estoque atual: {estoque}")
                  print(f"Saida solicitada:{valor}"  )
                  print(f"Estoque Final: {total}")
                  cadastro_produtos[produto]["quantidade"]=total
                  print(cadastro_produtos[produto]["quantidade"])
+                 dict_estoque["quantidade movimentada"]= valor
+                 dict_estoque["estoque antes"]= estoque
+                 dict_estoque["estoque depois"]= total
                  persistencia.salvar_json(cadastro_produtos)
                  break
               else:
@@ -172,7 +189,6 @@ def movimentação(cadastro_produtos):
              print("opçao invalida") 
 
 
-       
-               
+                      
           
                 

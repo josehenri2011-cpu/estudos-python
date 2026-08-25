@@ -3,6 +3,7 @@ import relatorios
 import persistencia
 
 cadastro_produtos=persistencia.carregar_json()
+historico=[]
 encerrar=False
 
 def menu():
@@ -16,12 +17,13 @@ def menu():
         print("6 - Ler relatorio")
         print("7 - Salvar Json")
         print("8 - relatorio detalhado")
-        print("9 -Movimentação Estoque")
-        print("10 - Encerrar")
+        print("9 - Movimentação Estoque")
+        print("10 - Consultar Historico")
+        print("11 - Encerrar")
 
         try:
            opcao=int(input())
-           if opcao<11 and opcao>0:
+           if opcao<12 and opcao>0:
               return opcao
              
            else:
@@ -37,7 +39,7 @@ while True:
             opcao=menu()       
     
             if opcao==1:
-              produtos.cadastro(cadastro_produtos)
+              produtos.cadastro(cadastro_produtos,historico)
    
             elif opcao==2:
                 produtos.consultar_produto(cadastro_produtos)
@@ -61,10 +63,12 @@ while True:
                 relatorios.relatorio_estoque(cadastro_produtos)
 
             elif opcao==9:
-                produtos.movimentação(cadastro_produtos)                
-
+                produtos.movimentação(cadastro_produtos,historico)                
 
             elif opcao==10:
+                relatorios.movimentacao_histórico(historico)
+
+            elif opcao==11:
                  while True:
                      print("Tem certeza que deseja finalizar ?") 
                      resposta=input()

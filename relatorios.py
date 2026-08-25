@@ -1,4 +1,7 @@
-
+def movimentacao_histórico(historico):
+    for diciociario in historico:
+        for chave, valor in diciociario.items():
+            print(f"{chave}:{valor}")                
 
 def ler_relatorio():
    try:
