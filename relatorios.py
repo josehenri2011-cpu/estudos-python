@@ -12,14 +12,13 @@ def consulta_movimentaçoes(historico):
     total_entradas=0
     total_saidas=0
     total_movimentaçoes=0
-    if produto not in historico:
-       print("nenhum historico encontrado")
-       return
+    flag=False
 
-    for dicionario in historico:
+    for dicionario in historico:           
         for chave, valor in dicionario.items():
             if chave=="produto":
                 if produto==valor:
+                   flag=True
                    for chave, valor in dicionario.items():
                        print(chave,valor)
                        if valor=="entrada":
@@ -32,10 +31,10 @@ def consulta_movimentaçoes(historico):
                           movimentaçoes = dicionario["quantidade movimentada"]
                           total_movimentaçoes=total_movimentaçoes+1
                           total_saidas=total_saidas+movimentaçoes
-            else:
-                print("produto sem historico de movimentação")
-                return
-
+                
+    if flag==False:
+       print("nenhum historico encontrado")
+       return 
     print("total entradas:",total_entradas)
     print("total saidas:",total_saidas)
     print("total_movimentaçoes:",total_movimentaçoes)
