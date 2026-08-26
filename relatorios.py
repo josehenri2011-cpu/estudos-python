@@ -1,7 +1,33 @@
 import persistencia
+import validacoes
+
+def consulta_movimentaçoes(historico):
+    print("infome o produto")
+    produto=input()
+    total_entradas=0
+    total_saidas=0
+    total_movimentaçoes=0
+    for dicionario in historico:
+        for chave, valor in dicionario.items():
+            if chave=="produto":
+                if produto==valor:
+                   for chave, valor in dicionario.items():
+                       print(chave,valor)
+                       if valor=="entrada":
+                          movimentaçoes = dicionario["quantidade movimentada"]
+                          total_movimentaçoes=total_movimentaçoes+1
+                          total_entradas=total_entradas+movimentaçoes
+                          print("total entradas:",total_entradas)
+                          print("total_movimentaçoes:",total_movimentaçoes)
+                       elif valor=="saida":
+                          movimentaçoes = dicionario["quantidade movimentada"]
+                          total_movimentaçoes=total_movimentaçoes+1
+                          total_saidas=total_saidas+movimentaçoes
+                          print("total saidas:",total_saidas)
+                          print("total_movimentaçoes:",total_movimentaçoes)
 
 def movimentacao_histórico(historico):
-    historico=persistencia.carregar_historico()
+    
     if historico==[]:
        print("Não existe nenhum historico recente")
        return
