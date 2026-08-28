@@ -1,6 +1,75 @@
 import persistencia
 import validacoes
 
+
+def rankin_atividade(historico):
+   resumo_temp={}
+   for dicionario in historico:
+       produto_atual=(dicionario["produto"])
+       if produto_atual not in resumo_temp:  
+          resumo_temp[produto_atual]={
+             "produto":produto_atual,
+             "total":0,
+             "Quantidade de movimentações":0,
+             
+             
+            }
+       resumo_temp[produto_atual]["total"]+=dicionario["quantidade movimentada"]
+       resumo_temp[produto_atual]["Quantidade de movimentações"]+=1
+   
+   campeao={         
+            
+                     "Produto maior":0, 
+                     "volume total movimentado":0,
+                                      
+          
+                 }
+         
+   for chave,volume in resumo_temp.items():
+       if volume["total"]>campeao["volume total movimentado"]:
+          campeao["volume total movimentado"]=volume["total"]
+          campeao["Produto maior"]=chave
+       
+   
+   
+   for produto, dados in resumo_temp.items():
+       print("produto:", produto)
+       print("total de unidades movimentadas:", dados["total"])
+       print("Quantidade de movimentações", dados["Quantidade de movimentações"])
+   
+   for chave, valor in campeao.items():
+       print(chave, valor)
+
+
+def historico_completo(historico):
+
+    resumo = {}
+
+    for dicionario in historico:
+
+        produto_atual = dicionario["produto"]
+
+        if produto_atual not in resumo:
+            resumo[produto_atual] = {
+                "total entradas": 0,
+                "total saidas": 0,
+                "total movimentacoes": 0
+            }
+
+        if dicionario["tipo da movimentação"] == "entrada":
+            resumo[produto_atual]["total entradas"] += dicionario["quantidade movimentada"]
+
+        elif dicionario["tipo da movimentação"] == "saida":
+            resumo[produto_atual]["total saidas"] += dicionario["quantidade movimentada"]
+
+        resumo[produto_atual]["total movimentacoes"] += 1
+
+    for produto, dados in resumo.items():
+        print("Produto:", produto)
+        print("Total entradas:", dados["total entradas"])
+        print("Total saidas:", dados["total saidas"])
+        print("Total movimentações:", dados["total movimentacoes"])
+
 def consulta_movimentaçoes(historico):
     if historico==[]:
        print("nenhum historico encontrado")
@@ -56,6 +125,7 @@ def ler_relatorio():
             print(fichas)
    except FileNotFoundError:
           print("Arquivo nao encontrado")
+
 def gerar_relatorio(cadastro_produtos):
     with open("produtos.txt", "w") as arquivo:
         for produto, informaçoes in cadastro_produtos.items():
