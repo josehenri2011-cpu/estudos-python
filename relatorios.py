@@ -33,10 +33,12 @@ def Relatório_saldo_líquido(historico):
         if dic_temp[produto_atual]["total_entradas:"]>dic_temp[produto_atual]["total_saidas:"]:
            dic_temp[produto_atual]["situação:"]="positivo"
         
+        elif dic_temp[produto_atual]["saldo líquido:"]==0:
+             dic_temp[produto_atual]["situação:"]="zerado"
+        
         else:
             dic_temp[produto_atual]["situação:"]="negativo"
-        
-        
+    
     for chave, dic in dic_temp.items():
         print("Produto:", chave)
         print("Total Entradas:", dic["total_entradas:"])
