@@ -3,23 +3,27 @@ import validacoes
 
 
 def rankin_atividade(historico):
+   if historico==[]:
+     print("nenhum produto cadastrado")
+     return
+    
    resumo_temp={}
    for dicionario in historico:
-       produto_atual=(dicionario["produto"])
-       if produto_atual not in resumo_temp:  
-          resumo_temp[produto_atual]={
-             "produto":produto_atual,
-             "total":0,
-             "Quantidade de movimentações":0,
-             
-             
+        produto_atual=(dicionario["produto"])
+        if produto_atual not in resumo_temp:  
+            resumo_temp[produto_atual]={
+                "produto":produto_atual,
+                "total":0,
+                "Quantidade de movimentações":0,
+                
+                
             }
-       resumo_temp[produto_atual]["total"]+=dicionario["quantidade movimentada"]
-       resumo_temp[produto_atual]["Quantidade de movimentações"]+=1
-   
+        resumo_temp[produto_atual]["total"]+=dicionario["quantidade movimentada"]
+        resumo_temp[produto_atual]["Quantidade de movimentações"]+=1
+
    campeao={         
             
-                     "Produto maior":0, 
+                     "Produto maior":None, 
                      "volume total movimentado":0,
                                       
           
