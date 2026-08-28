@@ -22,10 +22,11 @@ def menu():
         print("11 - Consultar movimentaçoes produto")
         print("12 - Historico completo")
         print("13 - Ranking de atividade do estoque")
-        print("14 - encerrar")
+        print("14 - Relatório de saldo líquido por produto")
+        print("15 - encerrar")
         try:
            opcao=int(input())
-           if opcao<15 and opcao>0:
+           if opcao<16 and opcao>0:
               return opcao
              
            else:
@@ -78,7 +79,11 @@ while True:
 
             elif opcao==13:
                  relatorios.rankin_atividade(historico)
+            
             elif opcao==14:
+                relatorios.Relatório_saldo_líquido(historico)
+            
+            elif opcao==15:
                  while True:
                      print("Tem certeza que deseja finalizar ?") 
                      resposta=input()

@@ -2,6 +2,51 @@ import persistencia
 import validacoes
 
 
+
+def Relatório_saldo_líquido(historico):
+    if historico==[]:
+       print("vazio")
+       return
+    
+    dic_temp={}
+    for dicionario in historico:
+        
+        produto_atual=(dicionario["produto"])
+        
+        if produto_atual not in  dic_temp:
+           dic_temp[produto_atual]={
+                        "total_entradas:":0,
+                        "total_saidas:":0,
+                        "saldo líquido:":0, 
+                        "situação:":None,  
+                    
+                    }
+        
+        if dicionario["tipo da movimentação"]=="entrada":
+           dic_temp[produto_atual]["total_entradas:"]+=dicionario["quantidade movimentada"]
+        
+        elif dicionario["tipo da movimentação"]=="saida":
+             dic_temp[produto_atual]["total_saidas:"]+=dicionario["quantidade movimentada"]
+        
+        dic_temp[produto_atual]["saldo líquido:"]=dic_temp[produto_atual]["total_entradas:"]-dic_temp[produto_atual]["total_saidas:"]
+        
+        if dic_temp[produto_atual]["total_entradas:"]>dic_temp[produto_atual]["total_saidas:"]:
+           dic_temp[produto_atual]["situação:"]="positivo"
+        
+        else:
+            dic_temp[produto_atual]["situação:"]="negativo"
+        
+        
+    for chave, dic in dic_temp.items():
+        print("Produto:", chave)
+        print("Total Entradas:", dic["total_entradas:"])
+        print("Total Saidas:", dic["total_saidas:"])
+        print("Saldo líquido:", dic["saldo líquido:"])
+        print("Situação",dic["situação:"])
+            
+
+
+
 def rankin_atividade(historico):
    if historico==[]:
      print("nenhum produto cadastrado")
@@ -23,8 +68,8 @@ def rankin_atividade(historico):
 
    campeao={         
             
-                     "Produto maior":None, 
-                     "volume total movimentado":0,
+                     "Produto maior:":None, 
+                     "volume total movimentado:":0,
                                       
           
                  }
