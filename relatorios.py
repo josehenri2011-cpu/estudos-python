@@ -15,10 +15,14 @@ def Auditor_inconsistências(historico):
   
            flag=True
              
-        if "entrada" not in dicionario["tipo da movimentação"]:
-            if "saida" not in dicionario["tipo da movimentação"]:
-                flag=True
-                categoria=True
+        if dicionario["tipo da movimentação"]=="entrada":
+            flag=False
+        elif dicionario["tipo da movimentação"]=="saida":
+            flag=False
+            
+        else:    
+            flag=True
+            categoria=True
         
         if dicionario["quantidade movimentada"]<= 0:
             flag=True
