@@ -16,9 +16,9 @@ def Auditor_inconsistências(historico):
            flag=True
              
         if dicionario["tipo da movimentação"]=="entrada":
-            flag=False
+            pass
         elif dicionario["tipo da movimentação"]=="saida":
-            flag=False
+            pass
             
         else:    
             flag=True
