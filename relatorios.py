@@ -1,6 +1,28 @@
 import persistencia
 import validacoes
 
+
+def Diagnóstico_Auditor(movimentaçoes_analisadas,Movimentaçoes_invalidas,produto_estado,categoria_estado,quantidade_estado, Movimentaçoes_validas):
+    if produto_estado:
+       print("Problema: Nenhum produto encontrado")
+    
+    if categoria_estado:
+       print("Problema:movimentação invalida")
+    
+    if quantidade_estado:
+       print("Problema: quantidade inválida")
+    
+    print("Total de movimentações analisadas:",movimentaçoes_analisadas)
+    print("Movimentações válidas:",Movimentaçoes_validas)
+    print("Movimentações invalidas:",Movimentaçoes_invalidas)
+    
+    if Movimentaçoes_invalidas==0:
+        print("Nenhuma inconsistência encontrada.")
+
+
+
+
+
 def Auditor_inconsistências(historico):
     movimentaçoes_analisadas=0
     Movimentaçoes_validas=0
@@ -10,6 +32,9 @@ def Auditor_inconsistências(historico):
         flag=False
         categoria=False
         quantidade=False
+        produto_estado=False
+        categoria_estado=False
+        quantidade_estado=False
 
         if dicionario["produto"]=="":
   
@@ -30,24 +55,18 @@ def Auditor_inconsistências(historico):
                   
         
         if flag:
-           print("Movimentação inválida") 
-           print("Produto",dicionario["produto"])
-           Movimentaçoes_invalidas+=1               
-           if dicionario["produto"]=="":
-              print("Problema: Nenhum produto encontrado")
-           if categoria:
-               print("Problema:movimentação invalida")
-           
-           if quantidade:
-              print("Problema: quantidade inválida")
+            Movimentaçoes_invalidas+=1               
+        if dicionario["produto"]=="":
+            produto_estado=True
+        if categoria: 
+            categoria_estado=True 
+        if quantidade:
+           quantidade_estado=True
         else:
             Movimentaçoes_validas+=1
     
-    print("Total de movimentações analisadas:",movimentaçoes_analisadas)
-    print("Movimentações válidas:",Movimentaçoes_validas)
-    print("Movimentações invalidas:",Movimentaçoes_invalidas)
-    if Movimentaçoes_invalidas==0:
-        print("Nenhuma inconsistência encontrada.")
+   
+   
     
 def Relatório_saldo_líquido(historico):
     if historico==[]:
