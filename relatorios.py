@@ -1,8 +1,50 @@
 import persistencia
 import validacoes
 
+def Auditor_inconsistências(historico):
+    movimentaçoes_analisadas=0
+    Movimentaçoes_validas=0
+    Movimentaçoes_invalidas=0
+    for dicionario in historico:
+        movimentaçoes_analisadas+=1
+        flag=False
+        categoria=False
+        quantidade=False
 
-
+        if dicionario["produto"]=="":
+  
+           flag=True
+             
+        if "entrada" not in dicionario["tipo da movimentação"]:
+            if "saida" not in dicionario["tipo da movimentação"]:
+                flag=True
+                categoria=True
+        
+        if dicionario["quantidade movimentada"]<= 0:
+            flag=True
+            quantidade=True
+                  
+        
+        if flag:
+           print("Movimentação inválida") 
+           print("Produto",dicionario["produto"])
+           Movimentaçoes_invalidas+=1               
+           if dicionario["produto"]=="":
+              print("Problema: Nenhum produto encontrado")
+           if categoria:
+               print("Problema:movimentação invalida")
+           
+           if quantidade:
+              print("Problema: quantidade inválida")
+        else:
+            Movimentaçoes_validas+=1
+    
+    print("Total de movimentações analisadas:",movimentaçoes_analisadas)
+    print("Movimentações válidas:",Movimentaçoes_validas)
+    print("Movimentações invalidas:",Movimentaçoes_invalidas)
+    if Movimentaçoes_invalidas==0:
+        print("Nenhuma inconsistência encontrada.")
+    
 def Relatório_saldo_líquido(historico):
     if historico==[]:
        print("vazio")
