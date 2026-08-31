@@ -87,7 +87,7 @@ while True:
             
             
             elif opcao==15:
-                 relatorios.resultado_auditor(historico)
+                relatorios.Auditor_inconsistências(historico)
             
         
             
