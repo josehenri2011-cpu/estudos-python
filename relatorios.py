@@ -2,7 +2,10 @@ import persistencia
 import validacoes
 
 
-
+def resultado_auditor(historico):
+    dicionario=Auditor_inconsistências(historico)
+    for chave,valor in dicionario.items():
+        print(chave,valor)
 
 def Auditor_inconsistências(historico):
     movimentaçoes_analisadas=0
@@ -45,12 +48,16 @@ def Auditor_inconsistências(historico):
               print("Problema: quantidade inválida")
         else:
             Movimentaçoes_validas+=1
-    
-    print("Total de movimentações analisadas:",movimentaçoes_analisadas)
-    print("Movimentações válidas:",Movimentaçoes_validas)
-    print("Movimentações invalidas:",Movimentaçoes_invalidas)
+        
+    dic_auditor={
+                "total de movimentações analisadas":movimentaçoes_analisadas,
+                "movimentações válidas":Movimentaçoes_validas,
+                "movimentações invalidas":Movimentaçoes_invalidas,      
+            }
     if Movimentaçoes_invalidas==0:
-        print("Nenhuma inconsistência encontrada.")
+            dic_auditor["nenhuma inconsistência encontrada"]="Nenhuma inconsistência encontrada."  
+        
+    return dic_auditor
     
 def Relatório_saldo_líquido(historico):
     if historico==[]:
