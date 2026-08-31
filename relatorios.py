@@ -3,25 +3,31 @@ import validacoes
 
 
 def resultado_auditor(historico):
-    dicionario=Auditor_inconsistências(historico)
-    for chave,valor in dicionario.items():
-        print(chave,valor)
+    lista=Auditor(historico)
+    for dicionario in lista:
+        for chave,valor in dicionario.items():
+            print(chave,valor)
 
-def Auditor_inconsistências(historico):
+
+def Auditor(historico):
     movimentaçoes_analisadas=0
     Movimentaçoes_validas=0
     Movimentaçoes_invalidas=0
+    list_auditor=[]
+    dic_auditor={}
     for dicionario in historico:
         produto_atual=dicionario["produto"]
+        dic_auditor[produto_atual]={
+        }
         movimentaçoes_analisadas+=1
+        dicionario["movimentaçoes analisadas"]=movimentaçoes_analisadas
         flag=False
         categoria=False
         quantidade=False
 
         if dicionario["produto"]=="":
-  
-           flag=True
-             
+            flag=True
+                
         if dicionario["tipo da movimentação"]=="entrada":
             pass
         elif dicionario["tipo da movimentação"]=="saida":
@@ -34,35 +40,30 @@ def Auditor_inconsistências(historico):
         if dicionario["quantidade movimentada"]<= 0:
             flag=True
             quantidade=True
-                  
+                    
         
         if flag:
-           Movimentaçoes_invalidas+=1               
-           if dicionario["produto"]=="":
-              dic_auditor["nenhum produto encontrado"]="Problema: Nenhum produto encontrado"
-           if categoria:
-              dic_auditor["movimentação invalida"]="Problema:movimentação invalida"
-           if quantidade:
-              dic_auditor["quantidade inválida"]="Problema: quantidade inválida"
+            Movimentaçoes_invalidas+=1               
+            dicionario["Movimentaçoes invalidas"]=Movimentaçoes_invalidas
+            if dicionario["produto"]=="":
+                dic_auditor[produto_atual]["nenhum produto encontrado"]="Problema: Nenhum produto encontrado"
+            if categoria:
+                dic_auditor[produto_atual]["movimentação invalida"]="Problema:movimentação invalida"
+            if quantidade:
+                dic_auditor[produto_atual]["quantidade inválida"]="Problema: quantidade inválida"
         
         
         else:
             Movimentaçoes_validas+=1
-        
-   
+            dicionario["Movimentaçoes validas"]=Movimentaçoes_validas
+        list_auditor.append(dic_auditor)    
+
     if Movimentaçoes_invalidas==0:
-        dic_auditor["nenhuma inconsistência encontrada"]="Nenhuma inconsistência encontrada."  
+        dic_auditor[produto_atual]["nenhuma inconsistência encontrada"]="Nenhuma inconsistência encontrada."  
+
+    return list_auditor       
     
     
-    dic_auditor={
-                    "Produto":produto_atual,
-                    "total de movimentações analisadas":movimentaçoes_analisadas,
-                    "movimentações válidas":Movimentaçoes_validas,
-                    "movimentações invalidas":Movimentaçoes_invalidas,      
-                }
-    
-      
-    return dic_auditor
     
 def Relatório_saldo_líquido(historico):
     if historico==[]:
