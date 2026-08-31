@@ -12,6 +12,7 @@ def Auditor_inconsistências(historico):
     Movimentaçoes_validas=0
     Movimentaçoes_invalidas=0
     for dicionario in historico:
+        produto_atual=dicionario["produto"]
         movimentaçoes_analisadas+=1
         flag=False
         categoria=False
@@ -36,27 +37,31 @@ def Auditor_inconsistências(historico):
                   
         
         if flag:
-           print("Movimentação inválida") 
-           print("Produto",dicionario["produto"])
            Movimentaçoes_invalidas+=1               
            if dicionario["produto"]=="":
-              print("Problema: Nenhum produto encontrado")
+              dic_auditor["nenhum produto encontrado"]="Problema: Nenhum produto encontrado"
            if categoria:
-               print("Problema:movimentação invalida")
-           
+              dic_auditor["movimentação invalida"]="Problema:movimentação invalida"
            if quantidade:
-              print("Problema: quantidade inválida")
+              dic_auditor["quantidade inválida"]="Problema: quantidade inválida"
+        
+        
         else:
             Movimentaçoes_validas+=1
         
-    dic_auditor={
-                "total de movimentações analisadas":movimentaçoes_analisadas,
-                "movimentações válidas":Movimentaçoes_validas,
-                "movimentações invalidas":Movimentaçoes_invalidas,      
-            }
+   
     if Movimentaçoes_invalidas==0:
-            dic_auditor["nenhuma inconsistência encontrada"]="Nenhuma inconsistência encontrada."  
-        
+        dic_auditor["nenhuma inconsistência encontrada"]="Nenhuma inconsistência encontrada."  
+    
+    
+    dic_auditor={
+                    "Produto":produto_atual,
+                    "total de movimentações analisadas":movimentaçoes_analisadas,
+                    "movimentações válidas":Movimentaçoes_validas,
+                    "movimentações invalidas":Movimentaçoes_invalidas,      
+                }
+    
+      
     return dic_auditor
     
 def Relatório_saldo_líquido(historico):
