@@ -3,8 +3,12 @@ import validacoes
 
 def relatorio_inconsistências(historico):  
     list_auditor=Auditor_inconsistências(historico)
+    
     for dados_auditor in list_auditor:
         relatorio_geral=dados_auditor["resumo"]
+        if relatorio_geral["total analisado"]==0:
+            print("historico esta vazio")
+            return
         print("Relatorio Geral:")
         print(f"total analisado:{relatorio_geral['total analisado']}")
         print(f"válidas:{relatorio_geral['válidas']}")
@@ -27,7 +31,7 @@ def relatorio_inconsistências(historico):
     
 
 def Auditor_inconsistências(historico):
-
+    
     movimentaçoes_analisadas = 0
     Movimentaçoes_validas = 0
     Movimentaçoes_invalidas = 0
@@ -71,7 +75,7 @@ def Auditor_inconsistências(historico):
             problemas["ocorrencias"]="OCORRENCIAS"
 
             if dicionario["produto"] == "":
-                print("Problema: Nenhum produto encontrado")
+                
                 problemas["Produto:"]="Problema: Nenhum produto encontrado"
                 
             else:
