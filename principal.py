@@ -87,17 +87,7 @@ while True:
             
             
             elif opcao==15:
-                historico_teste = [
-                {
-                "produto": "pedra",
-                "tipo da movimentação": "entrada",
-                "quantidade movimentada": 0,
-                "estoque antes": 5,
-                "estoque depois": 5
-                }
-                ]
-
-                relatorios.relatorio_inconsistências(historico_teste)
+                relatorios.relatorio_inconsistências(historico)
                     
         
             

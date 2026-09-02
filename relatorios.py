@@ -4,6 +4,14 @@ import validacoes
 def relatorio_inconsistências(historico):  
     list_auditor=Auditor_inconsistências(historico)
     for dados_auditor in list_auditor:
+        relatorio_geral=dados_auditor["resumo"]
+        print("Relatorio Geral:")
+        print(f"total analisado:{relatorio_geral['total analisado']}")
+        print(f"válidas:{relatorio_geral['válidas']}")
+        print(f"inválidas:{relatorio_geral['inválidas']}")
+        print(f"percentual validas: {relatorio_geral['percentual validas']}")
+        print(f"percentual invalidas: {relatorio_geral['percentual invalidas']}")
+        
         for ocorrencia in dados_auditor["ocorrencias"]:
             print(ocorrencia)
     
@@ -34,7 +42,6 @@ def Auditor_inconsistências(historico):
 
         if dicionario["produto"] == "":
             flag = True
-        print(dicionario.keys())
         if dicionario["tipo da movimentação"] == "entrada":
             pass
 
@@ -77,16 +84,19 @@ def Auditor_inconsistências(historico):
     dic_auditor["resumo"]["total analisado"] = movimentaçoes_analisadas
     dic_auditor["resumo"]["válidas"] = Movimentaçoes_validas
     dic_auditor["resumo"]["inválidas"] = Movimentaçoes_invalidas
+    if dic_auditor["resumo"]["total analisado"]>0:
+        dic_auditor["resumo"]["percentual validas"] =(Movimentaçoes_validas / movimentaçoes_analisadas) * 100
+        dic_auditor["resumo"]["percentual invalidas"] =(Movimentaçoes_invalidas / movimentaçoes_analisadas) * 100
+    elif dic_auditor["resumo"]["total analisado"]==0:
+         dic_auditor["resumo"]["percentual validas"] =0
+         dic_auditor["resumo"]["percentual invalidas"] =0
     lista_auditor.append(dic_auditor)
     
 
-    print("Total de movimentações analisadas:", movimentaçoes_analisadas)
-    print("Movimentações válidas:", Movimentaçoes_validas)
-    print("Movimentações invalidas:", Movimentaçoes_invalidas)
+   
 
     if Movimentaçoes_invalidas == 0:
-        print("Nenhuma inconsistência encontrada.")
-    return lista_auditor
+       return lista_auditor
     
 def Relatório_saldo_líquido(historico):
     if historico==[]:
