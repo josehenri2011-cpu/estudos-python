@@ -5,15 +5,20 @@ def relatorio_inconsistências(historico):
     list_auditor=Auditor_inconsistências(historico)
     for dados_auditor in list_auditor:
         relatorio_geral=dados_auditor["resumo"]
-        print("Relatori o Geral:")
+        print("Relatorio Geral:")
         print(f"total analisado:{relatorio_geral['total analisado']}")
         print(f"válidas:{relatorio_geral['válidas']}")
         print(f"inválidas:{relatorio_geral['inválidas']}")
-        print(f"percentual validas: {relatorio_geral['percentual validas']}")
-        print(f"percentual invalidas: {relatorio_geral['percentual invalidas']}")
-        
-        for ocorrencia in dados_auditor["ocorrencias"]:
-            print(ocorrencia)
+        print(f"percentual validas: {relatorio_geral['percentual validas']}%")
+        print(f"percentual invalidas: {relatorio_geral['percentual invalidas']}%")
+            
+    
+        for ocorrencia in dados_auditor["ocorrencias"]:    
+            print(ocorrencia["ocorrencias"])
+            print(ocorrencia["Produto:"])
+            print(ocorrencia["categoria"])
+            print(ocorrencia["Quantidade"])
+             
     
 
 def Auditor_inconsistências(historico):
@@ -58,6 +63,7 @@ def Auditor_inconsistências(historico):
 
         if flag==True:
             Movimentaçoes_invalidas += 1
+            problemas["ocorrencias"]="OCORRENCIAS"
 
             if dicionario["produto"] == "":
                 print("Problema: Nenhum produto encontrado")
@@ -69,6 +75,8 @@ def Auditor_inconsistências(historico):
 
             if categoria:
                problemas["categoria"]="Problema: movimentação invalida"
+            else:
+                problemas["categoria"] = ""
             
 
             if quantidade:
