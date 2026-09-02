@@ -5,7 +5,7 @@ def relatorio_inconsistências(historico):
     list_auditor=Auditor_inconsistências(historico)
     for dados_auditor in list_auditor:
         relatorio_geral=dados_auditor["resumo"]
-        print("Relatorio Geral:")
+        print("Relatori o Geral:")
         print(f"total analisado:{relatorio_geral['total analisado']}")
         print(f"válidas:{relatorio_geral['válidas']}")
         print(f"inválidas:{relatorio_geral['inválidas']}")
@@ -95,8 +95,8 @@ def Auditor_inconsistências(historico):
 
    
 
-    if Movimentaçoes_invalidas == 0:
-       return lista_auditor
+    
+    return lista_auditor
     
 def Relatório_saldo_líquido(historico):
     if historico==[]:
