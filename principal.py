@@ -105,7 +105,7 @@ while True:
                     },
                     {
                     "produto": "marros",
-                    "tipo da movimentação": "entrada",
+                    "tipo da movimentação": "feijao",
                     "quantidade movimentada": 0,
                     "estoque antes": 5,
                     "estoque depois": 5

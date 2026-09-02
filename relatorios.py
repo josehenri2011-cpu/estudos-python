@@ -16,8 +16,13 @@ def relatorio_inconsistências(historico):
         for ocorrencia in dados_auditor["ocorrencias"]:    
             print(ocorrencia["ocorrencias"])
             print(ocorrencia["Produto:"])
-            print(ocorrencia["categoria"])
-            print(ocorrencia["Quantidade"])
+            if ocorrencia["categoria"] != "":
+               print(ocorrencia["categoria"])
+            
+            if ocorrencia["Quantidade"] != "":
+               print(ocorrencia["Quantidade"])
+            
+            
              
     
 
