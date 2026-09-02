@@ -82,7 +82,9 @@ def Auditor_inconsistências(historico):
             if quantidade:
 
                 problemas["Quantidade"]="Problema: quantidade inválida"
-
+            else:
+                problemas["Quantidade"] = ""
+            
             dic_auditor["ocorrencias"].append(problemas)
                 
 
