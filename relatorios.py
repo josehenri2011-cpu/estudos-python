@@ -7,41 +7,44 @@ def relatorio_maior_movimentação(historico):
     maior_movimentação=Maior_movimentação_tipo(historico)
     print(maior_movimentação["entrada"]["produto"])
     print(maior_movimentação["entrada"]["maior_entrada"])           
+    print(f"quantidade de movimentações:{maior_movimentação['entrada']['operaçoes_entrada']}")           
+    print(f"total movimentado:{maior_movimentação['entrada']['total_movimentado_entrada']}")           
+        
     print(maior_movimentação["saida"]["produto"])
     print(maior_movimentação["saida"]["maior_saida"])           
-    print(f"quantidade de movimentações:{maior_movimentação['movimentaçoes']['operaçoes']}")           
-    print(f"total movimentado:{maior_movimentação['movimentaçoes']['total_movimentado']}")           
+    print(f"quantidade de movimentações:{maior_movimentação['saida']['operaçoes_saida']}")           
+    print(f"total movimentado:{maior_movimentação['saida']['total_movimentado_saida']}")           
 
 
 def Maior_movimentação_tipo(historico):
     movimentacao={
         "entrada":{
-            "produto":None,
-             "maior_entrada":0   
+             "produto":None,
+             "maior_entrada":0,
+              "operaçoes_entrada":0,
+              "total_movimentado_entrada":0   
+                 
                            },
         "saida":{
             "produto":None,
-            "maior_saida":0
+            "maior_saida":0,
+            "operaçoes_saida":0,
+            "total_movimentado_saida":0
             
             },
-        "movimentaçoes":{
-            "operaçoes":0,
-            "total_movimentado":0
-            
-            
-        }
-        
     }
     
     for dicionario in historico:
-        movimentacao["movimentaçoes"]["operaçoes"]+=1
-        movimentacao["movimentaçoes"]["total_movimentado"]+=dicionario["quantidade movimentada"]
         if dicionario["tipo da movimentação"]=="entrada":
-            if dicionario["quantidade movimentada"]>movimentacao["entrada"]["maior_entrada"]:
+           movimentacao["entrada"]["operaçoes_entrada"]+=1
+           movimentacao["entrada"]["total_movimentado_entrada"]+=dicionario["quantidade movimentada"] 
+           if dicionario["quantidade movimentada"]>movimentacao["entrada"]["maior_entrada"]:
                movimentacao["entrada"]["produto"]=dicionario["produto"]
                movimentacao["entrada"]["maior_entrada"]=dicionario["quantidade movimentada"]
     
         elif dicionario["tipo da movimentação"]=="saida":
+             movimentacao["saida"]["operaçoes_saida"]+=1
+             movimentacao["saida"]["total_movimentado_saida"]+=dicionario["quantidade movimentada"]
              if dicionario["quantidade movimentada"]>movimentacao["saida"]["maior_saida"]:
                 movimentacao["saida"]["produto"]=dicionario["produto"]
                 movimentacao["saida"]["maior_saida"]=dicionario["quantidade movimentada"]
