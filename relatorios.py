@@ -1,6 +1,46 @@
 import persistencia
 import validacoes
 
+
+
+def relatorio_maior_movimentação(historico):
+    maior_movimentação=Maior_movimentação_tipo(historico)
+    print(maior_movimentação["entrada"]["produto"])
+    print(maior_movimentação["entrada"]["maior_entrada"])           
+    print(maior_movimentação["saida"]["produto"])
+    print(maior_movimentação["saida"]["maior_saida"])           
+
+
+def Maior_movimentação_tipo(historico):
+    movimentacao={
+        "entrada":{
+            "produto":None,
+             "maior_entrada":0   
+                           },
+        "saida":{
+            "produto":None,
+            "maior_saida":0
+            
+            }
+        
+    }
+    
+    for dicionario in historico:
+        if dicionario["tipo da movimentação"]=="entrada":
+            if dicionario["quantidade movimentada"]>movimentacao["entrada"]["maior_entrada"]:
+               movimentacao["entrada"]["produto"]=dicionario["produto"]
+               movimentacao["entrada"]["maior_entrada"]=dicionario["quantidade movimentada"]
+    
+        elif dicionario["tipo da movimentação"]=="saida":
+             if dicionario["quantidade movimentada"]>movimentacao["saida"]["maior_saida"]:
+                movimentacao["saida"]["produto"]=dicionario["produto"]
+                movimentacao["saida"]["maior_saida"]=dicionario["quantidade movimentada"]
+    return movimentacao        
+               
+               
+            
+    
+
 def relatorio_inconsistências(historico):  
     list_auditor=Auditor_inconsistências(historico)
     
@@ -16,9 +56,9 @@ def relatorio_inconsistências(historico):
         print(f"percentual validas: {relatorio_geral['percentual validas']}%")
         print(f"percentual invalidas: {relatorio_geral['percentual invalidas']}%")
             
-    
+        
         for ocorrencia in dados_auditor["ocorrencias"]:    
-            print(ocorrencia["ocorrencias"])
+            print("--------------------------")
             print(ocorrencia["Produto:"])
             if ocorrencia["categoria"] != "":
                print(ocorrencia["categoria"])
@@ -72,7 +112,7 @@ def Auditor_inconsistências(historico):
 
         if flag==True:
             Movimentaçoes_invalidas += 1
-            problemas["ocorrencias"]="OCORRENCIAS"
+            
 
             if dicionario["produto"] == "":
                 
@@ -191,7 +231,7 @@ def rankin_atividade(historico):
                  }
          
    for chave,volume in resumo_temp.items():
-       if volume["total"]>campeao["volume total movimentado"]:
+       if volume["total"]>campeao["volume total movimentado:"]:
           campeao["volume total movimentado"]=volume["total"]
           campeao["Produto maior"]=chave
        

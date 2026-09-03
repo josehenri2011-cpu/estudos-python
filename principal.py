@@ -24,11 +24,12 @@ def menu():
         print("13 - Ranking de atividade do estoque")
         print("14 - Relatório de saldo líquido por produto")
         print("15 - Auditor de inconsistências do histórico")
-        print("16 - encerrar")
+        print("16 - Maior movimentação por tipo")
+        print("17 - encerrar")
         
         try:
            opcao=int(input())
-           if opcao<17 and opcao>0:
+           if opcao<18 and opcao>0:
               return opcao
              
            else:
@@ -90,8 +91,11 @@ while True:
 
                 relatorios.relatorio_inconsistências(historico)     
          
-            
             elif opcao==16:
+                 relatorios.relatorio_maior_movimentação(historico)
+            
+            
+            elif opcao==17:
                  while True:
                      print("Tem certeza que deseja finalizar ?") 
                      resposta=input()
