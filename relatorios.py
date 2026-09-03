@@ -1,7 +1,29 @@
 import persistencia
 import validacoes
 
-
+def Extrato_Produto(historico,produto):
+    dic_analise={
+        "entrada":{
+                             "produto":None,
+                              "operaçoes_entrada":0,
+                              "total_unidades_entrada":0,
+                              "operaçoes_saida":0,                  
+                               "total_unidades_saida":0,                         
+                                "saldo_movimentado":0                        },
+    
+        
+    }
+        
+    for dicionario in historico:
+        if dicionario["produto"]==produto:
+           if dicionario["tipo da movimentação"]=="entrada":
+              dic_analise["entrada"]["produto"]=dicionario["produto"]
+              dic_analise["entrada"]["operaçoes_entrada"]+=1
+              dic_analise["entrada"]["total_unidades_entrada"]+=dicionario["quantidade movimentada"]
+           elif dicionario["tipo da movimentação"]=="saida":
+               dic_analise["entrada"]["operaçoes_saida"]+=1
+               dic_analise["entrada"]["total_unidades_saida"]+=dicionario["quantidade movimentada"]
+           dic_analise["entrada"]["saldo_movimentado"]=dic_analise["entrada"]["total_unidades_entrada"]-dic_analise["entrada"]["total_unidades_saida"]
 
 def relatorio_maior_movimentação(historico):
     maior_movimentação=Maior_movimentação_tipo(historico)
@@ -238,7 +260,7 @@ def rankin_atividade(historico):
    campeao={         
             
                      "Produto maior:":None, 
-                     "volume total movimentado:":0,
+                     "volume total movimentado":0,
                                       
           
                  }
