@@ -1,6 +1,21 @@
 import persistencia
 import validacoes
 
+
+def Analise_limite(historico,limite):
+    dic_aprovadas={
+        "movimentaçoes_aprovadas":0,
+        "total_aprovadas":0
+    }
+    
+    
+    for dados in historico:
+        if dados["quantidade movimentada"]>=limite:
+           dic_aprovadas["movimentaçoes_aprovadas"]=dados["quantidade movimentada"]
+           dic_aprovadas["total_aprovadas"]+=dados["quantidade movimentada"]
+    
+    return dic_aprovadas   
+
 def Extrato_Produto(historico,produto):
     dic_analise=Analise_Produto(historico,produto)
     print(dic_analise["entrada"]["produto"])
@@ -34,6 +49,7 @@ def Analise_Produto(historico,produto):
                dic_analise["entrada"]["total_unidades_saida"]+=dicionario["quantidade movimentada"]
            dic_analise["entrada"]["saldo_movimentado"]=dic_analise["entrada"]["total_unidades_entrada"]-dic_analise["entrada"]["total_unidades_saida"]
     return dic_analise
+
 def relatorio_maior_movimentação(historico):
     maior_movimentação=Maior_movimentação_tipo(historico)
     print(maior_movimentação["entrada"]["produto"])

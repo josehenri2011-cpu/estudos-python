@@ -27,11 +27,12 @@ def menu():
         print("16 - Maior movimentação por tipo")
         print("17 - Resumo de Movimentações por Tipo")
         print("18 - Extrato Consolidado de um Produto")
-        print("19 - encerrar")
+        print("19 - Analise limite")
+        print("20 - encerrar")
         
         try:
            opcao=int(input())
-           if opcao<20 and opcao>0:
+           if opcao<21 and opcao>0:
               return opcao
              
            else:
@@ -104,6 +105,9 @@ while True:
                 relatorios.Extrato_Produto(historico,"pedra")
             
             elif opcao==19:
+                relatorios.Analise_limite(historico,25)
+            
+            elif opcao==20:
                  while True:
                      print("Tem certeza que deseja finalizar ?") 
                      resposta=input()
