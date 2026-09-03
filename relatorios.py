@@ -9,6 +9,8 @@ def relatorio_maior_movimentação(historico):
     print(maior_movimentação["entrada"]["maior_entrada"])           
     print(maior_movimentação["saida"]["produto"])
     print(maior_movimentação["saida"]["maior_saida"])           
+    print(f"quantidade de movimentações:{maior_movimentação['movimentaçoes']['operaçoes']}")           
+    print(f"total movimentado:{maior_movimentação['movimentaçoes']['total_movimentado']}")           
 
 
 def Maior_movimentação_tipo(historico):
@@ -21,11 +23,19 @@ def Maior_movimentação_tipo(historico):
             "produto":None,
             "maior_saida":0
             
-            }
+            },
+        "movimentaçoes":{
+            "operaçoes":0,
+            "total_movimentado":0
+            
+            
+        }
         
     }
     
     for dicionario in historico:
+        movimentacao["movimentaçoes"]["operaçoes"]+=1
+        movimentacao["movimentaçoes"]["total_movimentado"]+=dicionario["quantidade movimentada"]
         if dicionario["tipo da movimentação"]=="entrada":
             if dicionario["quantidade movimentada"]>movimentacao["entrada"]["maior_entrada"]:
                movimentacao["entrada"]["produto"]=dicionario["produto"]
@@ -231,7 +241,7 @@ def rankin_atividade(historico):
                  }
          
    for chave,volume in resumo_temp.items():
-       if volume["total"]>campeao["volume total movimentado:"]:
+       if volume["total"]>campeao["volume total movimentado"]:
           campeao["volume total movimentado"]=volume["total"]
           campeao["Produto maior"]=chave
        
