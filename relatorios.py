@@ -2,6 +2,15 @@ import persistencia
 import validacoes
 
 def Extrato_Produto(historico,produto):
+    dic_analise=Analise_Produto(historico,produto)
+    print(dic_analise["entrada"]["produto"])
+    print(f"total entrada:{dic_analise['entrada']['operaçoes_entrada']}")
+    print(f"total unidades entrada: {dic_analise['entrada']['total_unidades_entrada']}")
+    print(f"total saida: {dic_analise['entrada']['operaçoes_saida']}")
+    print(f"saldo_movimentado: {dic_analise['entrada']['saldo_movimentado']}")
+
+
+def Analise_Produto(historico,produto):
     dic_analise={
         "entrada":{
                              "produto":None,
@@ -24,7 +33,7 @@ def Extrato_Produto(historico,produto):
                dic_analise["entrada"]["operaçoes_saida"]+=1
                dic_analise["entrada"]["total_unidades_saida"]+=dicionario["quantidade movimentada"]
            dic_analise["entrada"]["saldo_movimentado"]=dic_analise["entrada"]["total_unidades_entrada"]-dic_analise["entrada"]["total_unidades_saida"]
-
+    return dic_analise
 def relatorio_maior_movimentação(historico):
     maior_movimentação=Maior_movimentação_tipo(historico)
     print(maior_movimentação["entrada"]["produto"])
