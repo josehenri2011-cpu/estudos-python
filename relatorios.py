@@ -1,30 +1,41 @@
 import persistencia
 import validacoes
 
-def leitura_dinamica_fornecedor():
-    resumo=Consolidacao_dinamica_fornecedor()
-    analise={}
-    for dicionario in resumo:
-        fornecedor_atual=dicionario["fornecedor"]
-        if fornecedor_atual not in analise:
-           analise[fornecedor_atual]={
-               "quantidade_movimentaçoes":0,
-               "total_movimentaçoes":0
-               
+def leitura_dinamica():
+    resultado=Consolidacao_dinamica_categoria_tipo        
+    resumo={}
+    for dicionario in resultado:
+        categoria_atual=dicionario["categoria"]
+        if categoria_atual not in resumo:
+           resumo[categoria_atual]={
+               "quantidade_entradas":0,
+               "total_entradas":0,
+               "quantidade_saidas":0,
+               "total_saidas":0,
+               "saldo_categoria":0
            } 
-        analise[fornecedor_atual]["quantidade_movimentaçoes"]+=1
-        analise[fornecedor_atual]["total_movimentaçoes"]+=dicionario["quantidade"]
-            
+        if dicionario["tipo"]=="entrada":
+           resumo[categoria_atual]["quantidade_entradas"]+=1
+           resumo[categoria_atual]["total_entradas"]+=dicionario["valor"]
+        elif dicionario["tipo"]=="saida":
+           resumo[categoria_atual]["quantidade_saidas"]+=1
+           resumo[categoria_atual]["total_saidas"]+=dicionario["valor"]
+        resumo[categoria_atual]["saldo_categoria"]=resumo[categoria_atual]["total_entradas"]-resumo[categoria_atual]["total_saidas"]
+           
         
-def Consolidacao_dinamica_fornecedor():
-    historico_Consolidacao = [
-    {"fornecedor": "Alfa", "produto": "arroz", "quantidade": 20},
-    {"fornecedor": "Beta", "produto": "feijao", "quantidade": 10},
-    {"fornecedor": "Alfa", "produto": "milho", "quantidade": 15},
-    {"fornecedor": "Gamma", "produto": "arroz", "quantidade": 8},
-    {"fornecedor": "Beta", "produto": "milho", "quantidade": 12},
+def Consolidacao_dinamica_categoria_tipo():
+    movimentacoes = [
+    {"categoria": "Alimentos", "tipo": "entrada", "valor": 120},
+    {"categoria": "Limpeza", "tipo": "saida", "valor": 40},
+    {"categoria": "Alimentos", "tipo": "saida", "valor": 30},
+    {"categoria": "Ferramentas", "tipo": "entrada", "valor": 200},
+    {"categoria": "Limpeza", "tipo": "entrada", "valor": 90},
+    {"categoria": "Alimentos", "tipo": "entrada", "valor": 50},
+    {"categoria": "Ferramentas", "tipo": "saida", "valor": 70},
 ]
-    return historico_Consolidacao
+    return movimentacoes
+
+
 
 def Extrato_Produto(historico,produto):
     dic_analise=Analise_Produto(historico,produto)
