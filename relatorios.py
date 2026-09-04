@@ -1,20 +1,30 @@
 import persistencia
 import validacoes
 
-
-def Analise_limite(historico,limite):
-    dic_aprovadas={
-        "movimentaçoes_aprovadas":0,
-        "total_aprovadas":0
-    }
-    
-    
-    for dados in historico:
-        if dados["quantidade movimentada"]>=limite:
-           dic_aprovadas["movimentaçoes_aprovadas"]=dados["quantidade movimentada"]
-           dic_aprovadas["total_aprovadas"]+=dados["quantidade movimentada"]
-    
-    return dic_aprovadas   
+def leitura_dinamica_fornecedor():
+    resumo=Consolidacao_dinamica_fornecedor()
+    analise={}
+    for dicionario in resumo:
+        fornecedor_atual=dicionario["fornecedor"]
+        if fornecedor_atual not in analise:
+           analise[fornecedor_atual]={
+               "quantidade_movimentaçoes":0,
+               "total_movimentaçoes":0
+               
+           } 
+        analise[fornecedor_atual]["quantidade_movimentaçoes"]+=1
+        analise[fornecedor_atual]["total_movimentaçoes"]+=dicionario["quantidade"]
+            
+        
+def Consolidacao_dinamica_fornecedor():
+    historico_Consolidacao = [
+    {"fornecedor": "Alfa", "produto": "arroz", "quantidade": 20},
+    {"fornecedor": "Beta", "produto": "feijao", "quantidade": 10},
+    {"fornecedor": "Alfa", "produto": "milho", "quantidade": 15},
+    {"fornecedor": "Gamma", "produto": "arroz", "quantidade": 8},
+    {"fornecedor": "Beta", "produto": "milho", "quantidade": 12},
+]
+    return historico_Consolidacao
 
 def Extrato_Produto(historico,produto):
     dic_analise=Analise_Produto(historico,produto)
