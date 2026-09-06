@@ -32,7 +32,7 @@ def menu():
         
         try:
            opcao=int(input())
-           if opcao<20 and opcao>0:
+           if opcao<21 and opcao>0:
               return opcao
              
            else:
@@ -105,6 +105,10 @@ while True:
                 relatorios.Extrato_Produto(historico,"pedra")
             
             elif opcao==19:
+                relatorios.leitura_dinamica()
+            
+            
+            elif opcao==20:
                  while True:
                      print("Tem certeza que deseja finalizar ?") 
                      resposta=input()

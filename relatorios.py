@@ -2,40 +2,51 @@ import persistencia
 import validacoes
 
 def leitura_dinamica():
-    resultado=Consolidacao_dinamica_categoria_tipo        
-    resumo={}
-    for dicionario in resultado:
-        categoria_atual=dicionario["categoria"]
-        if categoria_atual not in resumo:
-           resumo[categoria_atual]={
-               "quantidade_entradas":0,
-               "total_entradas":0,
-               "quantidade_saidas":0,
-               "total_saidas":0,
-               "saldo_categoria":0
-           } 
-        if dicionario["tipo"]=="entrada":
-           resumo[categoria_atual]["quantidade_entradas"]+=1
-           resumo[categoria_atual]["total_entradas"]+=dicionario["valor"]
-        elif dicionario["tipo"]=="saida":
-           resumo[categoria_atual]["quantidade_saidas"]+=1
-           resumo[categoria_atual]["total_saidas"]+=dicionario["valor"]
-        resumo[categoria_atual]["saldo_categoria"]=resumo[categoria_atual]["total_entradas"]-resumo[categoria_atual]["total_saidas"]
-           
+    registros=Consolidacao_dinamica_categoria_tipo()
+    analise={}
+    for dicionario in registros:
+        equipe_atual=dicionario["equipe"]
+        funcionario_atual=dicionario["funcionario"]
+        if equipe_atual not in analise:
+            analise[equipe_atual]={
+              "funcionário_maior_média_final":0,
+              "valor_média":0,
+            }
         
+        
+        if funcionario_atual not in analise[equipe_atual]:
+            analise[equipe_atual][funcionario_atual]={
+                "quantidade_avaliações":0,
+                "soma_notas":0,
+                "media_final":0,
+                }
+        
+        analise[equipe_atual][funcionario_atual]["quantidade_avaliações"]+=1
+        analise[equipe_atual][funcionario_atual]["soma_notas"]+=dicionario["nota"]
+        analise[equipe_atual][funcionario_atual]["media_final"]=analise[equipe_atual][funcionario_atual]["soma_notas"]/analise[equipe_atual][funcionario_atual]["quantidade_avaliações"]
+       
+
+        if analise[equipe_atual][funcionario_atual]["media_final"]>analise[equipe_atual]["valor_média"]:
+            analise[equipe_atual]["funcionário_maior_média_final"]=dicionario["funcionario"]
+            analise[equipe_atual]["valor_média"]=analise[equipe_atual][funcionario_atual]["media_final"]
+
+        
+
+       
+    print(analise)
+
 def Consolidacao_dinamica_categoria_tipo():
-    movimentacoes = [
-    {"categoria": "Alimentos", "tipo": "entrada", "valor": 120},
-    {"categoria": "Limpeza", "tipo": "saida", "valor": 40},
-    {"categoria": "Alimentos", "tipo": "saida", "valor": 30},
-    {"categoria": "Ferramentas", "tipo": "entrada", "valor": 200},
-    {"categoria": "Limpeza", "tipo": "entrada", "valor": 90},
-    {"categoria": "Alimentos", "tipo": "entrada", "valor": 50},
-    {"categoria": "Ferramentas", "tipo": "saida", "valor": 70},
+   registros = [
+    {"equipe": "Alpha", "funcionario": "Ana", "nota": 10},
+    {"equipe": "Beta", "funcionario": "Bruno", "nota": 9},
+    {"equipe": "Alpha", "funcionario": "Carlos", "nota": 7},
+    {"equipe": "Alpha", "funcionario": "Ana", "nota": 2},
+    {"equipe": "Beta", "funcionario": "Diana", "nota": 6},
+    {"equipe": "Alpha", "funcionario": "Carlos", "nota": 7},
+    {"equipe": "Beta", "funcionario": "Bruno", "nota": 1},
+    {"equipe": "Beta", "funcionario": "Diana", "nota": 8},
 ]
-    return movimentacoes
-
-
+   return registros
 
 def Extrato_Produto(historico,produto):
     dic_analise=Analise_Produto(historico,produto)
