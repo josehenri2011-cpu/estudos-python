@@ -12,31 +12,91 @@ movimentacoes = [
     {"produto": "Arroz", "tipo": "entrada", "quantidade": 5},
     {"produto": "Feijao", "tipo": "saida", "quantidade": 8},
 ]
- 
-def leitor_dinamico(identificador,analise):
+
+
+def relatorio_media_produtos(historico):
+    relatorio=Produtos_abaixo_saldo_médio(historico)
+    for chave, valor in relatorio.items():
+        print(chave,valor)
+def Produtos_abaixo_saldo_médio(historico):
+    analise={}
+    teste={
+        "total":0,
+        "quantidade_produtos":0,     
+    }
+    
+    relatorio={
+        "saldo_medio":0,
+        
+    }        
     
     
-    if analise=={}:
+    for dicionario in historico:
+        produto_atual=dicionario["produto"]
+        if produto_atual not in analise:
+            analise[produto_atual]={
+              "total_entradas":0,
+              "total_saidas":0,
+              "saldo_final":0,
+               }
+            teste["quantidade_produtos"]+=1
+        
+        
+        if dicionario["tipo da movimentação"]=="entrada":
+            analise[produto_atual]["total_entradas"]+=dicionario["quantidade movimentada"]
+        
+        if dicionario["tipo da movimentação"]=="saida":
+            analise[produto_atual]["total_saidas"]+=dicionario["quantidade movimentada"]
+        analise[produto_atual]["saldo_final"]=analise[produto_atual]["total_entradas"]-analise[produto_atual]["total_saidas"]
+    for chave,dados in analise.items():
+        teste["total"]+=dados["saldo_final"]
+        relatorio["saldo_medio"]=teste["total"]/teste["quantidade_produtos"]
+        
+    
+    for chave,dados in analise.items():
+        produto_reprovado=chave
+        if dados["saldo_final"]<relatorio["saldo_medio"]:  
+           relatorio[produto_reprovado]={
+               "saldo_produto_abaixo_media":0,
+               }
+           relatorio[produto_reprovado]["saldo_produto_abaixo_media"]=dados["saldo_final"]
+    return relatorio
+    
+    print(analise)
+    print(teste)
+    print(relatorio)
+
+
+
+def leitor_dinamico():
+    numero_critico=analista()
+    movimentaçoes=Consolidar_estoque()
+    
+    if movimentaçoes=={}:
+            numero_critico=analista()
             print("vazio")
             return
     else:
-        print(analise)
+        print(movimentaçoes)
 
-    if identificador=={}:
+    if numero_critico=={}:
         print("vazio")
         return
     else:
-       print(identificador)
+       print(numero_critico)
            
 
-def analista(analise):
+def analista():
+    dicionario=Consolidar_estoque()          
+    
+    
     
     identificador={       
         "produto_menor_saldo":0,
         "numero_critico":0,    
     }
     flag=True
-    for chave, dados in analise.items():           
+    for chave, dados in dicionario.items():           
        if flag: 
           identificador["produto_menor_saldo"]=chave
           identificador["numero_critico"]=dados["saldo_final"]
@@ -46,11 +106,11 @@ def analista(analise):
            identificador["numero_critico"]=dados["saldo_final"]
     
     
-          
+    return identificador       
 
     
 
-def Consolidar_estoque(movimentacoes):
+def Consolidar_estoque():
     
     analise={}
     
@@ -67,7 +127,7 @@ def Consolidar_estoque(movimentacoes):
         if dicionario["tipo"]=="saida":
            analise[produto_atual]["total_unidades_saida"]+=dicionario["quantidade"]
         analise[produto_atual]["saldo_final"]=analise[produto_atual]["total_unidades_entrada"]-analise[produto_atual]["total_unidades_saida"]
-    
+    return analise
   
 
 

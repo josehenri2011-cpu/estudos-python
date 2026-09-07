@@ -27,12 +27,13 @@ def menu():
         print("16 - Maior movimentação por tipo")
         print("17 - Resumo de Movimentações por Tipo")
         print("18 - Extrato Consolidado de um Produto")
-        print("18 - Extrato Consolidado de um Produto")
-        print("19 - encerrar")
+        print("19 - Extrato Consolidado menor produto")
+        print("20 - Analise media")
+        print("21 - encerrar")
         
         try:
            opcao=int(input())
-           if opcao<21 and opcao>0:
+           if opcao<22 and opcao>0:
               return opcao
              
            else:
@@ -105,10 +106,13 @@ while True:
                 relatorios.Extrato_Produto(historico,"pedra")
             
             elif opcao==19:
-                relatorios.leitor_dinamico(identificador,analise)
+                relatorios.leitor_dinamico()
             
             
             elif opcao==20:
+                relatorios.relatorio_media_produtos(historico)
+            
+            elif opcao==21:
                  while True:
                      print("Tem certeza que deseja finalizar ?") 
                      resposta=input()
