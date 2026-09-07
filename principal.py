@@ -105,7 +105,7 @@ while True:
                 relatorios.Extrato_Produto(historico,"pedra")
             
             elif opcao==19:
-                relatorios.leitura_dinamica()
+                relatorios.leitor_dinamico(identificador,analise)
             
             
             elif opcao==20:

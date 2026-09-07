@@ -1,52 +1,76 @@
 import persistencia
 import validacoes
 
-def leitura_dinamica():
-    registros=Consolidacao_dinamica_categoria_tipo()
-    analise={}
-    for dicionario in registros:
-        equipe_atual=dicionario["equipe"]
-        funcionario_atual=dicionario["funcionario"]
-        if equipe_atual not in analise:
-            analise[equipe_atual]={
-              "funcionário_maior_média_final":0,
-              "valor_média":0,
-            }
-        
-        
-        if funcionario_atual not in analise[equipe_atual]:
-            analise[equipe_atual][funcionario_atual]={
-                "quantidade_avaliações":0,
-                "soma_notas":0,
-                "media_final":0,
-                }
-        
-        analise[equipe_atual][funcionario_atual]["quantidade_avaliações"]+=1
-        analise[equipe_atual][funcionario_atual]["soma_notas"]+=dicionario["nota"]
-        analise[equipe_atual][funcionario_atual]["media_final"]=analise[equipe_atual][funcionario_atual]["soma_notas"]/analise[equipe_atual][funcionario_atual]["quantidade_avaliações"]
-       
 
-        if analise[equipe_atual][funcionario_atual]["media_final"]>analise[equipe_atual]["valor_média"]:
-            analise[equipe_atual]["funcionário_maior_média_final"]=dicionario["funcionario"]
-            analise[equipe_atual]["valor_média"]=analise[equipe_atual][funcionario_atual]["media_final"]
-
-        
-
-       
-    print(analise)
-
-def Consolidacao_dinamica_categoria_tipo():
-   registros = [
-    {"equipe": "Alpha", "funcionario": "Ana", "nota": 10},
-    {"equipe": "Beta", "funcionario": "Bruno", "nota": 9},
-    {"equipe": "Alpha", "funcionario": "Carlos", "nota": 7},
-    {"equipe": "Alpha", "funcionario": "Ana", "nota": 2},
-    {"equipe": "Beta", "funcionario": "Diana", "nota": 6},
-    {"equipe": "Alpha", "funcionario": "Carlos", "nota": 7},
-    {"equipe": "Beta", "funcionario": "Bruno", "nota": 1},
-    {"equipe": "Beta", "funcionario": "Diana", "nota": 8},
+movimentacoes = [
+    {"produto": "Arroz", "tipo": "entrada", "quantidade": 30},
+    {"produto": "Feijao", "tipo": "entrada", "quantidade": 20},
+    {"produto": "Cafe", "tipo": "entrada", "quantidade": 15},
+    {"produto": "Arroz", "tipo": "saida", "quantidade": 12},
+    {"produto": "Feijao", "tipo": "saida", "quantidade": 7},
+    {"produto": "Cafe", "tipo": "saida", "quantidade": 10},
+    {"produto": "Arroz", "tipo": "entrada", "quantidade": 5},
+    {"produto": "Feijao", "tipo": "saida", "quantidade": 8},
 ]
-   return registros
+ 
+def leitor_dinamico(identificador,analise):
+    
+    
+    if analise=={}:
+            print("vazio")
+            return
+    else:
+        print(analise)
+
+    if identificador=={}:
+        print("vazio")
+        return
+    else:
+       print(identificador)
+           
+
+def analista(analise):
+    
+    identificador={       
+        "produto_menor_saldo":0,
+        "numero_critico":0,    
+    }
+    flag=True
+    for chave, dados in analise.items():           
+       if flag: 
+          identificador["produto_menor_saldo"]=chave
+          identificador["numero_critico"]=dados["saldo_final"]
+          flag=False
+       if identificador["numero_critico"]>dados["saldo_final"]:
+           identificador["produto_menor_saldo"]=chave
+           identificador["numero_critico"]=dados["saldo_final"]
+    
+    
+          
+
+    
+
+def Consolidar_estoque(movimentacoes):
+    
+    analise={}
+    
+    for dicionario in movimentacoes:
+        produto_atual=dicionario["produto"]
+        if produto_atual not in analise:
+           analise[produto_atual]={
+                "total_unidades_entrada":0,
+                "total_unidades_saida":0,
+                "saldo_final":0
+                }
+        if dicionario["tipo"]=="entrada":
+           analise[produto_atual]["total_unidades_entrada"]+=dicionario["quantidade"]
+        if dicionario["tipo"]=="saida":
+           analise[produto_atual]["total_unidades_saida"]+=dicionario["quantidade"]
+        analise[produto_atual]["saldo_final"]=analise[produto_atual]["total_unidades_entrada"]-analise[produto_atual]["total_unidades_saida"]
+    
+  
+
+
 
 def Extrato_Produto(historico,produto):
     dic_analise=Analise_Produto(historico,produto)
