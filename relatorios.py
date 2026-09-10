@@ -13,6 +13,73 @@ movimentacoes = [
     {"produto": "Feijao", "tipo": "saida", "quantidade": 8},
 ]
 
+def analise_Produto_Movimentação_Estoque(historico):
+    acumulador=0
+    produto_campeao=0
+    analise={}
+    relatorio={}
+    total={
+        "total_geral":0,
+    }
+    dic_temp={                           
+                "produto_maior_participação":0,
+                "percentual":0
+                }
+              
+    for dicionario in historico:
+        produto_atual=dicionario["produto"]
+        if produto_atual not in analise:
+            analise[produto_atual]={
+                "total_entradas":0,
+                "total_saidas":0,
+                "total_produto":0,
+                "percentual_produto":0,
+                }
+        
+        
+            
+        
+        
+        if dicionario["tipo da movimentação"]=="entrada":
+            analise[produto_atual]["total_entradas"]+=dicionario["quantidade movimentada"]
+    
+        if dicionario["tipo da movimentação"]=="saida":
+            analise[produto_atual]["total_saidas"]+=dicionario["quantidade movimentada"]
+        
+        analise[produto_atual]["total_produto"]=analise[produto_atual]["total_entradas"]+analise[produto_atual]["total_saidas"]
+       
+        
+        
+        
+    for chave,dados in analise.items():
+         if "total_produto" in dados:
+             acumulador+=dados["total_produto"]
+             
+    total["total_geral"]=acumulador  
+    
+    
+    
+    
+    for chave, valor in analise.items():
+        if "total_produto" in valor:
+          analise[chave]["percentual_produto"]=valor["total_produto"]/total["total_geral"]*100
+        
+        if analise[chave]["percentual_produto"]>produto_campeao: 
+           produto_campeao=analise[chave]["percentual_produto"]
+           dic_temp["produto_maior_participação"]=chave
+    
+    dic_temp["percentual"]=produto_campeao
+    relatorio["dados_produtos"]=analise
+    relatorio["total_movimentado"]=total
+    relatorio["produto_campeao"]=dic_temp
+    print(relatorio)
+        
+    
+    
+    
+        
+
+
 
 def relatorio_media_produtos(historico):
     relatorio=Produtos_abaixo_saldo_médio(historico)
