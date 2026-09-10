@@ -13,6 +13,14 @@ movimentacoes = [
     {"produto": "Feijao", "tipo": "saida", "quantidade": 8},
 ]
 
+def relatorio_Produto_Movimentação_Estoque(historico):
+    dados=analise_Produto_Movimentação_Estoque(historico)
+    for chave, valor in dados.items():
+        print(chave,":")
+        for produto, informacoes in valor.items():
+            print(produto,informacoes)
+
+
 def analise_Produto_Movimentação_Estoque(historico):
     acumulador=0
     produto_campeao=0
@@ -34,12 +42,7 @@ def analise_Produto_Movimentação_Estoque(historico):
                 "total_saidas":0,
                 "total_produto":0,
                 "percentual_produto":0,
-                }
-        
-        
-            
-        
-        
+                } 
         if dicionario["tipo da movimentação"]=="entrada":
             analise[produto_atual]["total_entradas"]+=dicionario["quantidade movimentada"]
     
@@ -72,7 +75,7 @@ def analise_Produto_Movimentação_Estoque(historico):
     relatorio["dados_produtos"]=analise
     relatorio["total_movimentado"]=total
     relatorio["produto_campeao"]=dic_temp
-    print(relatorio)
+    return relatorio
         
     
     

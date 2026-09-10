@@ -114,7 +114,7 @@ while True:
                 relatorios.relatorio_media_produtos(historico)
             
             elif opcao==21:
-                relatorios.analise_Produto_Movimentação_Estoque(historico)
+                relatorios.relatorio_Produto_Movimentação_Estoque(historico)
             
             elif opcao==22:
                  while True:
