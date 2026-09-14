@@ -36,7 +36,7 @@ def menu():
         
         try:
            opcao=int(input())
-           if opcao<24 and opcao>0:
+           if opcao<25 and opcao>0:
               return opcao
              
            else:

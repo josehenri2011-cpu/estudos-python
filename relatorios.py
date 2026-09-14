@@ -27,16 +27,17 @@ def Produtos_Dominantes_Estoque(historico):
     total_geral=0
     for dicionario in historico:
         produto_atual=dicionario["produto"]
-        if produto_atual not in analise:    
-            analise[produto_atual]={
-                "total_movimentaçoes":0,
-                "percentual":0
-                }
         if dicionario["tipo da movimentação"] == "entrada" or dicionario["tipo da movimentação"] == "saida": 
-            analise[produto_atual]["total_movimentaçoes"]+=dicionario["quantidade movimentada"]
-        
-        total_geral+=dicionario["quantidade movimentada"]
-    
+           if produto_atual not in analise:    
+              analise[produto_atual]={
+                 "total_movimentaçoes":0,
+                  "percentual":0,
+               }
+           total_geral+=dicionario["quantidade movimentada"]
+           analise[produto_atual]["total_movimentaçoes"]+=dicionario["quantidade movimentada"]  
+            
+            
+            
     for chave,valor in analise.items():
         valor["percentual"]=valor["total_movimentaçoes"]/total_geral*100
     
