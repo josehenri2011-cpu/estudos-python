@@ -30,11 +30,13 @@ def menu():
         print("19 - Extrato Consolidado menor produto")
         print("20 - Analise media")
         print("21 Participação de Cada Produto na Movimentação do Estoque")
-        print("22 - encerrar")
+        print("22 - TREINO")
+        print("23 - Produtos Dominantes no Estoque")
+        print("24 - encerrar")
         
         try:
            opcao=int(input())
-           if opcao<23 and opcao>0:
+           if opcao<24 and opcao>0:
               return opcao
              
            else:
@@ -117,6 +119,13 @@ while True:
                 relatorios.relatorio_Produto_Movimentação_Estoque(historico)
             
             elif opcao==22:
+                 relatorios.treino()
+            
+            
+            elif opcao==23:
+                relatorios.leitura_Produtos_Dominantes_Estoque(historico)
+            
+            elif opcao==24:
                  while True:
                      print("Tem certeza que deseja finalizar ?") 
                      resposta=input()

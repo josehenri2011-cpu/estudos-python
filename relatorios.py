@@ -13,6 +13,110 @@ movimentacoes = [
     {"produto": "Feijao", "tipo": "saida", "quantidade": 8},
 ]
 
+
+def leitura_Produtos_Dominantes_Estoque(historico):
+    resumo=Produtos_Dominantes_Estoque(historico)
+    
+    for chave, dados in resumo.items():
+        print(chave,dados)
+        
+    
+
+def Produtos_Dominantes_Estoque(historico):
+    analise={}
+    total_geral=0
+    for dicionario in historico:
+        produto_atual=dicionario["produto"]
+        if produto_atual not in analise:    
+            analise[produto_atual]={
+                "total_movimentaçoes":0,
+                "percentual":0
+                }
+        if dicionario["tipo da movimentação"] == "entrada" or dicionario["tipo da movimentação"] == "saida": 
+            analise[produto_atual]["total_movimentaçoes"]+=dicionario["quantidade movimentada"]
+        
+        total_geral+=dicionario["quantidade movimentada"]
+    
+    for chave,valor in analise.items():
+        valor["percentual"]=valor["total_movimentaçoes"]/total_geral*100
+    
+    produtos_dominantes={}
+    contador=0
+    for chave,valor in analise.items():
+        dominantes=chave
+        if dominantes not in produtos_dominantes:
+           if valor["percentual"]>25:
+              produtos_dominantes[dominantes]={
+               "percentual_dominante":0,
+                      
+              } 
+            
+        if valor["percentual"]>25:
+           produtos_dominantes[dominantes]["percentual_dominante"]=valor["percentual"]
+        
+    for contagem in produtos_dominantes:
+        contador+=1
+    
+    relatorio={}
+    
+    
+    relatorio["movimentaçoes"]=analise
+    relatorio["produtos_dominantes"]=produtos_dominantes
+    relatorio["quantidade_produtos_dominantes"]=contador
+    relatorio["total_geral"]=total_geral
+    
+    return relatorio
+    
+        
+    
+        
+
+
+
+def treino():
+    vendas = {
+    "Norte": {
+        "Ana": 120,
+        "Bruno": 80
+    },
+    "Sul": {
+        "Carlos": 150,
+        "Diana": 100
+    }
+}
+
+    totais_regiao = {}
+
+    for regiao, vendedores in vendas.items():
+        total = 0
+
+        for vendedor, valor in vendedores.items():
+            total += valor
+
+        totais_regiao[regiao] = total
+
+
+    maior_total = 0
+    regiao_maior = None
+
+    for regiao, total in totais_regiao.items():
+        if total > maior_total:
+            maior_total = total
+            regiao_maior = regiao
+
+
+    vendedores_da_maior = {}
+
+    for vendedor, valor in vendas[regiao_maior].items():
+        vendedores_da_maior[vendedor] = valor
+
+
+    for chave, valor in vendedores_da_maior.items():
+        if vendedores_da_maior[chave] > 100:
+            print(chave, valor)
+
+
+
 def relatorio_Produto_Movimentação_Estoque(historico):
     dados=analise_Produto_Movimentação_Estoque(historico)
     for chave, valor in dados.items():
